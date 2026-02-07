@@ -14,16 +14,77 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      complaints: {
+        Row: {
+          created_at: string
+          department: Database["public"]["Enums"]["department_type"]
+          description: string
+          id: string
+          issue_type: string
+          status: Database["public"]["Enums"]["complaint_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          department: Database["public"]["Enums"]["department_type"]
+          description: string
+          id?: string
+          issue_type: string
+          status?: Database["public"]["Enums"]["complaint_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          department?: Database["public"]["Enums"]["department_type"]
+          description?: string
+          id?: string
+          issue_type?: string
+          status?: Database["public"]["Enums"]["complaint_status"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string
+          id: string
+          phone_number: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          full_name: string
+          id: string
+          phone_number?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          id?: string
+          phone_number?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_owner_of_complaint: {
+        Args: { complaint_id: string }
+        Returns: boolean
+      }
+      is_owner_of_profile: { Args: { profile_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      complaint_status: "submitted" | "in-progress" | "resolved"
+      department_type: "electricity" | "gas" | "municipal"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +211,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      complaint_status: ["submitted", "in-progress", "resolved"],
+      department_type: ["electricity", "gas", "municipal"],
+    },
   },
 } as const
