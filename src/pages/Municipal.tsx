@@ -1,12 +1,19 @@
+import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { PersonnelCard } from "@/components/cards/PersonnelCard";
 import { BalanceCard } from "@/components/cards/BalanceCard";
 import { NoticeCard } from "@/components/cards/NoticeCard";
 import { ComplaintForm } from "@/components/forms/ComplaintForm";
 import { ComplaintsList } from "@/components/complaints/ComplaintsList";
+import { UPIPayment } from "@/components/payments/UPIPayment";
+import { DocumentUpload } from "@/components/documents/DocumentUpload";
+import { PaymentReceipt } from "@/components/receipts/PaymentReceipt";
 import { WorkProgressCard } from "@/components/cards/WorkProgressCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Building2, Users, CreditCard, Bell, MessageSquare, Wrench } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/hooks/useAuth";
+import { Building2, Users, CreditCard, Bell, MessageSquare, Wrench, IndianRupee, FileUp } from "lucide-react";
 
 const personnelData = [
   { name: "Dr. Anita Desai", role: "Municipal Commissioner", phone: "9876543230", area: "City Wide" },
@@ -42,6 +49,22 @@ const issueTypes = [
 ];
 
 export default function Municipal() {
+  const { t } = useLanguage();
+  const { user } = useAuth();
+  const [showReceipt, setShowReceipt] = useState(false);
+  const [paymentData, setPaymentData] = useState<{
+    transactionId: string;
+    receiptNumber: string;
+  } | null>(null);
+
+  const handlePaymentComplete = (transactionId: string) => {
+    setPaymentData({
+      transactionId,
+      receiptNumber: `RCP${Date.now().toString(36).toUpperCase()}`,
+    });
+    setShowReceipt(true);
+  };
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -52,9 +75,9 @@ export default function Municipal() {
               <Building2 className="h-12 w-12 text-municipal" />
             </div>
             <div>
-              <h1 className="text-heading text-foreground">Municipal Corporation</h1>
+              <h1 className="text-heading text-foreground">{t.departments.municipal.title}</h1>
               <p className="mt-1 text-muted-foreground">
-                Access civic services, track development work, and file complaints
+                {t.departments.municipal.description}
               </p>
             </div>
           </div>
@@ -64,10 +87,18 @@ export default function Municipal() {
       {/* Main Content */}
       <section className="container px-4 py-8 md:px-6">
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 gap-2 sm:w-auto sm:grid-cols-5">
+          <TabsList className="grid w-full grid-cols-4 gap-2 sm:w-auto sm:grid-cols-7">
             <TabsTrigger value="overview" className="touch-target gap-2">
               <CreditCard className="h-4 w-4" />
               <span className="hidden sm:inline">Overview</span>
+            </TabsTrigger>
+            <TabsTrigger value="payments" className="touch-target gap-2">
+              <IndianRupee className="h-4 w-4" />
+              <span className="hidden sm:inline">{t.payments.billPayment}</span>
+            </TabsTrigger>
+            <TabsTrigger value="documents" className="touch-target gap-2">
+              <FileUp className="h-4 w-4" />
+              <span className="hidden sm:inline">{t.documents.upload}</span>
             </TabsTrigger>
             <TabsTrigger value="works" className="touch-target gap-2">
               <Wrench className="h-4 w-4" />
@@ -79,7 +110,7 @@ export default function Municipal() {
             </TabsTrigger>
             <TabsTrigger value="complaints" className="touch-target gap-2">
               <MessageSquare className="h-4 w-4" />
-              <span className="hidden sm:inline">Complaints</span>
+              <span className="hidden sm:inline">{t.complaints.title}</span>
             </TabsTrigger>
             <TabsTrigger value="notices" className="touch-target gap-2">
               <Bell className="h-4 w-4" />
@@ -100,6 +131,69 @@ export default function Municipal() {
                 {notices.slice(0, 2).map((notice, index) => (
                   <NoticeCard key={index} {...notice} />
                 ))}
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="payments" className="animate-fade-in">
+            <div className="grid gap-6 lg:grid-cols-2">
+              <div>
+                <h3 className="mb-4 text-lg font-semibold text-foreground">{t.payments.scanQR}</h3>
+                <UPIPayment
+                  amount={12500}
+                  billNumber="MC2024PT0456"
+                  department="municipal"
+                  consumerName={user?.user_metadata?.full_name || "Citizen"}
+                  consumerNumber="PT-W5-00123"
+                  dueDate="March 31, 2024"
+                  onPaymentComplete={handlePaymentComplete}
+                />
+              </div>
+              
+              {showReceipt && paymentData && (
+                <Dialog open={showReceipt} onOpenChange={setShowReceipt}>
+                  <DialogContent className="max-w-md p-0">
+                    <PaymentReceipt
+                      receiptNumber={paymentData.receiptNumber}
+                      transactionId={paymentData.transactionId}
+                      department="municipal"
+                      consumerName={user?.user_metadata?.full_name || "Citizen"}
+                      consumerNumber="PT-W5-00123"
+                      billNumber="MC2024PT0456"
+                      amount={12500}
+                      paymentMethod="upi"
+                      paymentDate={new Date()}
+                      billingPeriod="Property Tax FY 2024-25"
+                    />
+                  </DialogContent>
+                </Dialog>
+              )}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="documents" className="animate-fade-in">
+            <div className="grid gap-6 lg:grid-cols-2">
+              <DocumentUpload department="municipal" />
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-foreground">Required Documents</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-municipal" />
+                    {t.documents.idProof} - Aadhaar, PAN, Voter ID
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-municipal" />
+                    Property Documents - Sale deed, Registry
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-municipal" />
+                    Previous Tax Receipts - For disputes
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-municipal" />
+                    Building Plan - For construction permissions
+                  </li>
+                </ul>
               </div>
             </div>
           </TabsContent>
@@ -135,7 +229,7 @@ export default function Municipal() {
           <TabsContent value="complaints" className="animate-fade-in">
             <div className="grid gap-6 lg:grid-cols-2">
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-foreground">Your Complaints</h3>
+                <h3 className="text-lg font-semibold text-foreground">{t.complaints.yourComplaints}</h3>
                 <ComplaintsList department="municipal" />
               </div>
               <ComplaintForm department="municipal" issueTypes={issueTypes} />

@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      bills: {
+        Row: {
+          amount: number
+          bill_number: string
+          billing_period_end: string
+          billing_period_start: string
+          created_at: string
+          department: Database["public"]["Enums"]["department_type"]
+          due_date: string
+          id: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          bill_number: string
+          billing_period_end: string
+          billing_period_start: string
+          created_at?: string
+          department: Database["public"]["Enums"]["department_type"]
+          due_date: string
+          id?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          bill_number?: string
+          billing_period_end?: string
+          billing_period_start?: string
+          created_at?: string
+          department?: Database["public"]["Enums"]["department_type"]
+          due_date?: string
+          id?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       complaints: {
         Row: {
           created_at: string
@@ -46,6 +88,103 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      documents: {
+        Row: {
+          complaint_id: string | null
+          created_at: string
+          department: Database["public"]["Enums"]["department_type"] | null
+          document_type: string
+          file_name: string
+          file_path: string
+          file_size: number
+          id: string
+          mime_type: string
+          user_id: string
+        }
+        Insert: {
+          complaint_id?: string | null
+          created_at?: string
+          department?: Database["public"]["Enums"]["department_type"] | null
+          document_type: string
+          file_name: string
+          file_path: string
+          file_size: number
+          id?: string
+          mime_type: string
+          user_id: string
+        }
+        Update: {
+          complaint_id?: string | null
+          created_at?: string
+          department?: Database["public"]["Enums"]["department_type"] | null
+          document_type?: string
+          file_name?: string
+          file_path?: string
+          file_size?: number
+          id?: string
+          mime_type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_complaint_id_fkey"
+            columns: ["complaint_id"]
+            isOneToOne: false
+            referencedRelation: "complaints"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          amount: number
+          bill_id: string | null
+          created_at: string
+          department: Database["public"]["Enums"]["department_type"]
+          id: string
+          payment_method: string
+          receipt_number: string
+          status: string
+          transaction_id: string
+          upi_reference: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          bill_id?: string | null
+          created_at?: string
+          department: Database["public"]["Enums"]["department_type"]
+          id?: string
+          payment_method: string
+          receipt_number: string
+          status?: string
+          transaction_id: string
+          upi_reference?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          bill_id?: string | null
+          created_at?: string
+          department?: Database["public"]["Enums"]["department_type"]
+          id?: string
+          payment_method?: string
+          receipt_number?: string
+          status?: string
+          transaction_id?: string
+          upi_reference?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_bill_id_fkey"
+            columns: ["bill_id"]
+            isOneToOne: false
+            referencedRelation: "bills"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {

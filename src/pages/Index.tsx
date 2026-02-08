@@ -5,6 +5,7 @@ import { ComplaintCard } from "@/components/cards/ComplaintCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Zap,
   Flame,
@@ -48,14 +49,16 @@ const recentNotices = [
   },
 ];
 
-const quickStats = [
-  { label: "Active Complaints", value: "3", icon: FileText, color: "text-warning" },
-  { label: "In Progress", value: "2", icon: Clock, color: "text-info" },
-  { label: "Resolved (30d)", value: "5", icon: CheckCircle2, color: "text-success" },
-  { label: "Pending Dues", value: "₹0", icon: AlertCircle, color: "text-muted-foreground" },
-];
-
 export default function Index() {
+  const { t } = useLanguage();
+
+  const quickStats = [
+    { label: t.stats.activeComplaints, value: "3", icon: FileText, color: "text-warning" },
+    { label: t.stats.inProgress, value: "2", icon: Clock, color: "text-info" },
+    { label: t.stats.resolved, value: "5", icon: CheckCircle2, color: "text-success" },
+    { label: t.stats.pendingDues, value: "₹0", icon: AlertCircle, color: "text-muted-foreground" },
+  ];
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -64,14 +67,13 @@ export default function Index() {
         <div className="container relative px-4 md:px-6">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="animate-fade-in text-display text-primary-foreground">
-              नागरिक सेवा
+              {t.hero.title}
             </h1>
             <p className="mt-2 text-2xl font-medium text-primary-foreground/90">
-              Citizen Services Portal
+              {t.hero.subtitle}
             </p>
             <p className="mx-auto mt-4 max-w-xl text-lg text-primary-foreground/80">
-              Access all essential public services in one place. Pay bills, file
-              complaints, and stay updated with government services.
+              {t.hero.description}
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Button
@@ -82,7 +84,7 @@ export default function Index() {
               >
                 <Link to="/electricity">
                   <Zap className="mr-2 h-5 w-5" />
-                  Electricity
+                  {t.nav.electricity}
                 </Link>
               </Button>
               <Button
@@ -93,7 +95,7 @@ export default function Index() {
               >
                 <Link to="/gas">
                   <Flame className="mr-2 h-5 w-5" />
-                  Gas
+                  {t.nav.gas}
                 </Link>
               </Button>
               <Button
@@ -104,7 +106,7 @@ export default function Index() {
               >
                 <Link to="/municipal">
                   <Building2 className="mr-2 h-5 w-5" />
-                  Municipal
+                  {t.nav.municipal}
                 </Link>
               </Button>
             </div>
@@ -143,19 +145,19 @@ export default function Index() {
         </h2>
         <div className="grid gap-6 md:grid-cols-3">
           <DepartmentCard
-            title="Electricity"
-            description="Pay bills, check balance, report outages and manage your electricity connection"
+            title={t.departments.electricity.title}
+            description={t.departments.electricity.description}
             icon={Zap}
             href="/electricity"
             variant="electricity"
             stats={[
-              { label: "Balance", value: "₹1,250" },
-              { label: "Due Date", value: "Mar 15" },
+              { label: t.stats.balance, value: "₹1,250" },
+              { label: t.payments.dueDate, value: "Mar 15" },
             ]}
           />
           <DepartmentCard
-            title="Gas"
-            description="Book cylinders, track delivery, manage LPG connection and report issues"
+            title={t.departments.gas.title}
+            description={t.departments.gas.description}
             icon={Flame}
             href="/gas"
             variant="gas"
@@ -165,8 +167,8 @@ export default function Index() {
             ]}
           />
           <DepartmentCard
-            title="Municipal"
-            description="Access civic services, pay property tax, track development work in your area"
+            title={t.departments.municipal.title}
+            description={t.departments.municipal.description}
             icon={Building2}
             href="/municipal"
             variant="municipal"
@@ -185,7 +187,7 @@ export default function Index() {
             {/* Recent Complaints */}
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="text-lg">Your Recent Complaints</CardTitle>
+                <CardTitle className="text-lg">{t.complaints.yourComplaints}</CardTitle>
                 <Button variant="ghost" size="sm" asChild>
                   <Link to="/electricity">View All</Link>
                 </Button>
@@ -221,10 +223,10 @@ export default function Index() {
           <CardContent className="flex flex-col items-center gap-6 p-8 sm:flex-row sm:justify-between">
             <div className="text-center sm:text-left">
               <h3 className="text-xl font-semibold text-card-foreground">
-                🚨 Need Emergency Help?
+                🚨 {t.emergency.title}
               </h3>
               <p className="mt-1 text-muted-foreground">
-                Quick access to all emergency helplines and safety information
+                {t.emergency.description}
               </p>
             </div>
             <Button
@@ -234,7 +236,7 @@ export default function Index() {
             >
               <Link to="/emergency">
                 <Phone className="mr-2 h-5 w-5" />
-                Emergency Contacts
+                {t.emergency.helpline}
               </Link>
             </Button>
           </CardContent>
