@@ -136,6 +136,77 @@ export type Database = {
           },
         ]
       }
+      kiosk_activity_logs: {
+        Row: {
+          action_type: string
+          created_at: string
+          department: string | null
+          details: Json | null
+          id: string
+          session_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action_type: string
+          created_at?: string
+          department?: string | null
+          details?: Json | null
+          id?: string
+          session_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action_type?: string
+          created_at?: string
+          department?: string | null
+          details?: Json | null
+          id?: string
+          session_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kiosk_activity_logs_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "kiosk_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kiosk_sessions: {
+        Row: {
+          actions_count: number | null
+          department: string | null
+          ended_at: string | null
+          id: string
+          kiosk_id: string
+          started_at: string
+          status: string
+          user_id: string | null
+        }
+        Insert: {
+          actions_count?: number | null
+          department?: string | null
+          ended_at?: string | null
+          id?: string
+          kiosk_id?: string
+          started_at?: string
+          status?: string
+          user_id?: string | null
+        }
+        Update: {
+          actions_count?: number | null
+          department?: string | null
+          ended_at?: string | null
+          id?: string
+          kiosk_id?: string
+          started_at?: string
+          status?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       payments: {
         Row: {
           amount: number
@@ -210,11 +281,39 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       is_owner_of_complaint: {
         Args: { complaint_id: string }
         Returns: boolean
@@ -222,6 +321,7 @@ export type Database = {
       is_owner_of_profile: { Args: { profile_id: string }; Returns: boolean }
     }
     Enums: {
+      app_role: "admin" | "moderator" | "user"
       complaint_status: "submitted" | "in-progress" | "resolved"
       department_type: "electricity" | "gas" | "municipal"
     }
@@ -351,6 +451,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      app_role: ["admin", "moderator", "user"],
       complaint_status: ["submitted", "in-progress", "resolved"],
       department_type: ["electricity", "gas", "municipal"],
     },
