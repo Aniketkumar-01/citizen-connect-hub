@@ -12,6 +12,9 @@ import Gas from "./pages/Gas";
 import Municipal from "./pages/Municipal";
 import Emergency from "./pages/Emergency";
 import Auth from "./pages/Auth";
+import KioskHome from "./pages/KioskHome";
+import Track from "./pages/Track";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -25,11 +28,14 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/kiosk" element={<KioskHome />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/electricity" element={<Electricity />} />
               <Route path="/gas" element={<Gas />} />
               <Route path="/municipal" element={<Municipal />} />
               <Route path="/emergency" element={<Emergency />} />
+              <Route path="/track" element={<Track />} />
+              <Route path="/admin" element={<AdminDashboard />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
