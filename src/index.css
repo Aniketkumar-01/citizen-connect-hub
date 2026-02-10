@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,37 +13,37 @@
 @layer base {
   :root {
     /* Core colors - Navy blue government theme */
-    --background: 210 20% 98%;
-    --foreground: 220 40% 13%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 40% 13%;
+    --card-foreground: 0 0% 0%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 40% 13%;
+    --popover-foreground: 0 0% 0%;
 
     /* Primary - Deep navy blue (trust, government) */
-    --primary: 220 60% 25%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
 
     /* Secondary - Warm amber (energy, action) */
-    --secondary: 38 92% 50%;
-    --secondary-foreground: 220 40% 13%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 0%;
 
-    --muted: 210 20% 94%;
-    --muted-foreground: 220 15% 45%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 220 50% 95%;
-    --accent-foreground: 220 60% 25%;
+    --accent: 0 0% 90%;
+    --accent-foreground: 0 0% 0%;
 
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 220 20% 88%;
-    --input: 220 20% 88%;
-    --ring: 220 60% 25%;
+    --border: 0 0% 0%;
+    --input: 0 0% 0%;
+    --ring: 0 0% 0%;
 
-    --radius: 0.75rem;
+    --radius: 0rem;
 
     /* Department colors */
     --electricity: 45 93% 47%;
@@ -49,7 +52,7 @@
     --gas-light: 15 90% 95%;
     --municipal: 160 60% 40%;
     --municipal-light: 160 60% 95%;
-    
+
     /* Status colors */
     --success: 142 70% 45%;
     --success-light: 142 70% 95%;
@@ -57,69 +60,103 @@
     --warning-light: 38 92% 95%;
     --info: 200 80% 50%;
     --info-light: 200 80% 95%;
-    
+
     /* Sidebar */
     --sidebar-background: 220 60% 25%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 38 92% 50%;
-    --sidebar-primary-foreground: 220 40% 13%;
-    --sidebar-accent: 220 50% 30%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 220 50% 35%;
-    --sidebar-ring: 38 92% 50%;
+    --sidebar-foreground: 0 0% 0%;
+    --sidebar-primary: 0 0% 0%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 90%;
+    --sidebar-accent-foreground: 0 0% 0%;
+    --sidebar-border: 0 0% 0%;
+    --sidebar-ring: 0 0% 0%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --sidebar: 0 0% 98%;
+    --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+    --font-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    --shadow-2xs: 1px 1px 0px 0px #000000;
+    --shadow-xs: 2px 2px 0px 0px #000000;
+    --shadow-sm: 3px 3px 0px 0px #000000;
+    --shadow: 5px 5px 0px 0px #000000;
+    --shadow-md: 8px 8px 0px 0px #000000;
+    --shadow-lg: 12px 12px 0px 0px #000000;
+    --shadow-xl: 16px 16px 0px 0px #000000;
+    --shadow-2xl: 24px 24px 0px 0px #000000;
+    --tracking-normal: 0em;
+    --spacing: 0.25rem;
   }
 
   .dark {
-    --background: 220 40% 8%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
 
-    --card: 220 40% 12%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 220 40% 12%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 38 92% 50%;
-    --primary-foreground: 220 40% 8%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 220 50% 20%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 40% 15%;
-    --muted-foreground: 210 20% 60%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 220 40% 18%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 72% 45%;
+    --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 30% 22%;
-    --input: 220 30% 22%;
-    --ring: 38 92% 50%;
-    
+    --border: 0 0% 100%;
+    --input: 0 0% 100%;
+    --ring: 0 0% 100%;
+
     --electricity: 45 93% 47%;
     --electricity-light: 45 30% 20%;
     --gas: 15 90% 55%;
     --gas-light: 15 30% 20%;
     --municipal: 160 60% 40%;
     --municipal-light: 160 30% 20%;
-    
+
     --success: 142 70% 45%;
     --success-light: 142 30% 20%;
     --warning: 38 92% 50%;
     --warning-light: 38 30% 20%;
     --info: 200 80% 50%;
     --info-light: 200 30% 20%;
-    
+
     --sidebar-background: 220 40% 10%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 38 92% 50%;
-    --sidebar-primary-foreground: 220 40% 8%;
-    --sidebar-accent: 220 40% 15%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 220 30% 18%;
-    --sidebar-ring: 38 92% 50%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 100%;
+    --sidebar-ring: 0 0% 100%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar: 0 0% 5%;
+    --radius: 0rem;
+    --shadow-2xs: 1px 1px 0px 0px #ffffff;
+    --shadow-xs: 2px 2px 0px 0px #ffffff;
+    --shadow-sm: 3px 3px 0px 0px #ffffff;
+    --shadow: 5px 5px 0px 0px #ffffff;
+    --shadow-md: 8px 8px 0px 0px #ffffff;
+    --shadow-lg: 12px 12px 0px 0px #ffffff;
+    --shadow-xl: 16px 16px 0px 0px #ffffff;
+    --shadow-2xl: 24px 24px 0px 0px #ffffff;
   }
 }
 
@@ -132,7 +169,7 @@
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight text-foreground;
   }
@@ -143,54 +180,54 @@
   .dept-card {
     @apply relative overflow-hidden rounded-xl border-2 bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-lg;
   }
-  
+
   .dept-card-electricity {
     @apply border-electricity/30 hover:border-electricity hover:bg-electricity-light;
   }
-  
+
   .dept-card-gas {
     @apply border-gas/30 hover:border-gas hover:bg-gas-light;
   }
-  
+
   .dept-card-municipal {
     @apply border-municipal/30 hover:border-municipal hover:bg-municipal-light;
   }
-  
+
   /* Status badges */
   .status-badge {
     @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium;
   }
-  
+
   .status-submitted {
     @apply bg-info-light text-info;
   }
-  
+
   .status-in-progress {
     @apply bg-warning-light text-warning;
   }
-  
+
   .status-resolved {
     @apply bg-success-light text-success;
   }
-  
+
   /* Large touch targets for accessibility */
   .touch-target {
     @apply min-h-[48px] min-w-[48px];
   }
-  
+
   /* Notice cards */
   .notice-card {
     @apply flex items-start gap-4 rounded-lg border-l-4 bg-card p-4 shadow-sm;
   }
-  
+
   .notice-urgent {
     @apply border-l-destructive bg-destructive/5;
   }
-  
+
   .notice-warning {
     @apply border-l-warning bg-warning-light;
   }
-  
+
   .notice-info {
     @apply border-l-info bg-info-light;
   }
